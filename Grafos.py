@@ -20,3 +20,22 @@ def cargar_rutas(archivo):
 
 def dijkstra(G, inicio):
     return nx.single_source_dijkstra_path(G, inicio), nx.single_source_dijkstra_path_length(G, inicio)
+
+# Tarea 2
+def dibujar_grafo(G, inicio):
+    pos = nx.shell_layout(G)  # Posiciones de los nodos
+    
+    # Dibujar los nodos
+    nx.draw_networkx_nodes(G, pos)
+    
+    # Resaltar el nodo de inicio en color verde
+    nx.draw_networkx_nodes(G, pos, nodelist=[inicio], node_color='lime')
+    
+    # Dibujar las aristas
+    nx.draw_networkx_edges(G, pos)
+    
+    # Dibujar las etiquetas debajo de los nodos
+    pos_etiquetas = {node: (coord[0], coord[1]-0.1) for node, coord in pos.items()}
+    nx.draw_networkx_labels(G, pos_etiquetas)
+    
+    plt.show()

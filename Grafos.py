@@ -8,7 +8,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Tarea 1
+# Implementación de un sistema que crea un grafo en NetworkX que representa las rutas del archivo rutas.txt
 def cargar_rutas(archivo):
     G = nx.Graph()
     with open(archivo, 'r') as f:
@@ -21,7 +21,7 @@ def cargar_rutas(archivo):
 def dijkstra(G, inicio):
     return nx.single_source_dijkstra_path(G, inicio), nx.single_source_dijkstra_path_length(G, inicio)
 
-# Tarea 2
+# Implementación de la funcionalidad para ver un mapa de posibles destinos desde una estación de salida
 def dibujar_grafo(G, inicio):
     pos = nx.shell_layout(G)  # Posiciones de los nodos
     
@@ -39,3 +39,26 @@ def dibujar_grafo(G, inicio):
     nx.draw_networkx_labels(G, pos_etiquetas)
     
     plt.show()
+
+# Implementación del algoritmo de Dijkstra para encontrar las mejores rutas para llegar a todos los destinos posibles
+def dijkstra_entre_dos_nodos(G, inicio, fin):
+    return nx.dijkstra_path(G, inicio, fin), nx.dijkstra_path_length(G, inicio, fin)
+
+def mostrar_rutas_costos(rutas, costos):
+    for destino, ruta in rutas.items():
+        print(f"\nDesde {ruta[0]} hasta {destino} la ruta más barata es: {' -> '.join(ruta)}, con un costo de ${costos[destino]}")
+
+# Cargar las rutas desde el archivo
+G = cargar_rutas('rutas.txt')
+
+# Solicitar al usuario la estación de salida
+inicio = input("Por favor, ingresa el nombre de la estación de salida: ")
+
+# Ejecutar el algoritmo de Dijkstra
+rutas, costos = dijkstra(G, inicio)
+
+# Mostrar las rutas y costos
+mostrar_rutas_costos(rutas, costos)
+
+# Dibujar el grafo
+dibujar_grafo(G, inicio)

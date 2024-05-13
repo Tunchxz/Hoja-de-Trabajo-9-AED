@@ -54,11 +54,15 @@ G = cargar_rutas('rutas.txt')
 # Solicitar al usuario la estación de salida
 inicio = input("Por favor, ingresa el nombre de la estación de salida: ")
 
-# Ejecutar el algoritmo de Dijkstra
-rutas, costos = dijkstra(G, inicio)
+# Verificar si la estación de salida existe en el grafo
+if inicio not in G:
+    print(f"Lo siento, la estación '{inicio}' no existe en el sistema.")
+else:
+    # Ejecutar el algoritmo de Dijkstra
+    rutas, costos = dijkstra(G, inicio)
 
-# Mostrar las rutas y costos
-mostrar_rutas_costos(rutas, costos)
+    # Mostrar las rutas y costos
+    mostrar_rutas_costos(rutas, costos)
 
-# Dibujar el grafo
-dibujar_grafo(G, inicio)
+    # Dibujar el grafo
+    dibujar_grafo(G, inicio)
